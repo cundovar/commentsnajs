@@ -1,20 +1,17 @@
-// models/comment.js
-const db = require('../config/db');
+const mongoose=require('mongoose')
 
-module.exports = {
-    getAllComments: (callback) => {
-        db.query('SELECT * FROM comments', callback);
+const commentSchema=new mongoose.Schema({
+
+    content :{
+        type:String,
+        required: true
+
     },
-    getCommentById: (id, callback) => {
-        db.query('SELECT * FROM comments WHERE id = ?', [id], callback);
-    },
-    addComment: (comment, callback) => {
-        db.query('INSERT INTO comments (content, author) VALUES (?, ?)', [comment.content, comment.author], callback);
-    },
-    updateComment: (id, comment, callback) => {
-        db.query('UPDATE comments SET content = ?, author = ? WHERE id = ?', [comment.content, comment.author, id], callback);
-    },
-    deleteComment: (id, callback) => {
-        db.query('DELETE FROM comments WHERE id = ?', [id], callback);
+    creatAt:{
+
+        type:Date,
+        dafault:Date.now
     }
-};
+})
+
+module.exports = mongoose.model('Comment', commentSchema);
