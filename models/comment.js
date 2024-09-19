@@ -11,6 +11,10 @@ const commentSchema=new mongoose.Schema({
 
         type:Date,
         dafault:Date.now
+    },
+    slugId:{
+        type:String,
+        require:true
     }
 })
 

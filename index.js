@@ -10,8 +10,9 @@ const app = express(
 // Middleware pour activer CORS
 app.use(cors(
     
-   {origin: 'http://localhost:3000'}
+  { origin: '*',  }// Autorise toutes les origines
 ));
+
 
 // Middleware pour parser les requêtes JSON
 app.use(express.json());
@@ -23,9 +24,9 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 // Routes CRUD pour les commentaires
 app.post('/comments', async (req, res) => {
-  const { content } = req.body;
+  const { content,slugId } = req.body;
   try {
-    const newComment = await Comment.create({ content });
+    const newComment = await Comment.create({ content,slugId });
     res.status(201).json(newComment);
   } catch (error) {
     res.status(400).json({ message: 'Erreur lors de la création du commentaire', error });
@@ -37,7 +38,7 @@ app.get('/comments', async (req, res) => {
     const comments = await Comment.find();
     res.status(200).json(comments);
   } catch (error) {
-    res.status(500).json({ message: 'Erreur lors de la récupération des commentaires', error });
+    res.status(500).json({ message: 'Erreur lors de la récupération des commentaires estt', error });
   }
 });
 
